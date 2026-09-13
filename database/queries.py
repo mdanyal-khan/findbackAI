@@ -150,7 +150,7 @@ def get_stats() -> Dict[str, int]:
         total = conn.execute("SELECT COUNT(*) FROM items").fetchone()[0]
         lost = conn.execute("SELECT COUNT(*) FROM items WHERE type='lost'").fetchone()[0]
         found = conn.execute("SELECT COUNT(*) FROM items WHERE type='found'").fetchone()[0]
-        matches = conn.execute("SELECT COUNT(*) FROM matches").fetchone()[0]
+        matches = conn.execute("SELECT COUNT(*) FROM claims WHERE status='potential'").fetchone()[0]
     return {"total": total, "lost": lost, "found": found, "matches": matches}
 
 

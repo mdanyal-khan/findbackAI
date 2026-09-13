@@ -8,9 +8,10 @@ This app helps users:
 
 - report lost items
 - report found items
-- search for likely matches using semantic and rule-based scoring
+- search for likely matches using semantic and rule-based scoring (available to all signed-in users)
 - review claim history and resolve ownership disputes
 - manage users with role-based access
+- allow administrators to reset lost/found transaction data after completed handovers
 
 It is designed for real-world campus operations where staff need to quickly identify who reported what and which item pair is most likely related.
 
@@ -19,8 +20,10 @@ It is designed for real-world campus operations where staff need to quickly iden
 - Lost and found item reporting
 - AI-powered matching using similarity scoring
 - Role-based access for admin, staff, and regular users
+- Find Matches is available to all signed-in users
 - Staff/admin visibility of user full names and contact details
 - Claim lifecycle management for review and handover approval
+- Administrator-only data reset after completed finding/handover
 - Demo credentials for quick testing
 - SQLite database that initializes automatically
 
@@ -134,6 +137,12 @@ If you want to use AI-powered item extraction or explanation features with a rea
 API_KEY = "your_groq_api_key"
 ```
 
+The provider configuration also supports the top-level Streamlit secret:
+
+```toml
+GROQ_API_KEY = "your_groq_api_key"
+```
+
 Or for Hugging Face:
 
 ```toml
@@ -161,9 +170,40 @@ The application seeds demo users automatically on first launch:
 1. Sign in using one of the demo accounts.
 2. Choose Report Lost or Report Found.
 3. Add item details, optional photo, and location.
-4. Go to Find Matches to compare a lost item with possible found items.
+4. Go to Find Matches to compare a lost item with possible found items. This function is available to all signed-in users.
 5. Staff/admin can review the item reporter names and contact information.
 6. Approve or resolve matching claims from the claim review section.
+
+## Role-based access and administrator controls
+
+The application uses three roles:
+
+| Role | Main access |
+| --- | --- |
+| Administrator | Full administrative access, including User Management and the data reset function |
+| Staff | Staff claim review and handover functions |
+| Regular User | Report lost/found items and use Find Matches |
+
+### Find Matches access
+
+**Find Matches is available to all signed-in users** (Administrator, Staff, and Regular User). Users can use AI/rule-based matching to compare lost and found items.
+
+### Administrator-only reset
+
+After an item has been successfully handed over and the claim is resolved, an **Administrator** can reset the application's transactional FindBack data from the **User Management** page.
+
+The reset removes:
+
+- lost/found item records
+- item features
+- matches
+- claims
+- notifications
+- AI usage records
+
+It **does not delete user accounts**.
+
+For safety, the administrator must type `RESET` before the reset button becomes active. This is a permanent data-clearing operation and is intended to start a new operational cycle with empty dashboard counters.
 
 ## Project structure
 

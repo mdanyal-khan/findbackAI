@@ -154,7 +154,7 @@ if page == "Home":
     cols[0].metric("Total Reports", stats["total"])
     cols[1].metric("Lost Items", stats["lost"])
     cols[2].metric("Found Items", stats["found"])
-    cols[3].metric("Potential Matches", stats["matches"])
+    cols[3].metric("Potential Claims", stats["matches"])
 
 elif page in ["Report Lost", "Report Found"]:
     is_lost = page == "Report Lost"
